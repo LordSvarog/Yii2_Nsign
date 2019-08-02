@@ -11,6 +11,13 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'container' => [
+        'definitions' => [
+            \app\components\robots\adapters\AdapterRobotsInterface::class => \app\components\robots\adapters\ArrayAdapter::class,
+
+            \app\components\robots\GeneratorRobotsTxtInterface::class => \app\components\robots\GeneratorRobotsTxt::class,
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -64,7 +71,7 @@ $config = [
           'phoneMask' => '+7($1) $2-$3-$4',
         ],
 
-        'robots' => [
+        /*'robots' => [
             'class' => app\components\robots\GeneratorRobotsTxt::class,
             'host' => 'yii2-nsign-basic',
             'sitemap' => [
@@ -98,7 +105,7 @@ $config = [
                     'Sitemap' => '/sitemapSpecialForGoogle.xml',
                 ],
             ],
-        ],
+        ],*/
     ],
     'params' => $params,
 ];
