@@ -2,7 +2,8 @@
 
 namespace app\components\robots\adapters;
 
-use app\components\robots\GeneratorRobotsTxtInterface;
+use app\components\robots\generators\GeneratorRobotsTxtInterface;
+use yii;
 
 /**
  * Class ArrayAdapter
@@ -23,21 +24,33 @@ class ArrayAdapter implements AdapterRobotsInterface
     {
         $this->generator = $generator;
     }
+    /**
+     * @param $path
+     * @param string $data
+     *
+     * @return boolean
+     */
+    protected function save($path, $data):bool
+    {
+        return file_put_contents($path, $data) ? true : false;
+    }
 
     /**
-     * @param array $data
-     * @return string
+     * @param string $path
+     * @param array $dirs
+     *
+     * @return boolean
      */
-    public function render($data): string
+    public function render($path, array $dirs): bool
     {
-        $this->generator->host = $data['host'];
-        $this->generator->sitemap = $data['sitemap'];
-        $this->generator->userAgent = $data['userAgent'];
+        foreach ($dirs as $key => $val) {
+            $this->generator->params[$key] = Yii::$app->request->post($key);
+        }
 
-        $this->generator->init();
+        $data = $this->generator->create();
 
-        $result = $this->generator->render();
-
-        return $result;
+        if ($this->save($path, $data))
+            return true;
+        return false;
     }
 }

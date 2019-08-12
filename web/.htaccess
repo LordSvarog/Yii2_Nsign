@@ -2,4 +2,4 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
-RewriteRule ^robots.txt$ /web
+RewriteRule ^robots.txt$ /web/index

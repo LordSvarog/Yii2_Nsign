@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div>
   <?php
+  $disallow = (isset($_POST['disallow'])) ?? 'Empty';
   echo \yii\grid\GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -44,4 +45,30 @@ $this->params['breadcrumbs'][] = $this->title;
     ]
   ]);
   ?>
+</div>
+<div class="row">
+    <h3><?= Html::encode($mes) ?></h3>
+    <div class="col-lg-5">
+
+        <?= Html::beginForm(['/web/save'], 'post', ['id' => 'robots-form']) ?>
+
+        <?= Html::cssFile('@web/css/robots.css') ?>
+
+        <?= Html::label('Директива Disallow', 'disallow', []) ?>
+        <?= Html::textarea('Disallow', $robots['Disallow'], ['rows' => 5, 'class' => 'robots-input']) ?>
+
+        <?= Html::label('Директива Allow', 'allow', []) ?>
+        <?= Html::textarea('Allow', $robots['Allow'], ['rows' => 3, 'class' => 'robots-input']) ?>
+
+        <?= Html::label('Директива Clean-param', 'clean-param', []) ?>
+        <?= Html::textarea('Clean-param', $robots['Clean-param'], ['rows' => 3, 'class' => 'robots-input']) ?>
+
+        <?= Html::label('Директива Crawl-delay', 'crawl-delay', []) ?>
+        <?= Html::input('number', 'Crawl-delay', $robots['Crawl-delay'], ['min' => 0, 'max' => 2, 'step' => 0.1, 'class' => 'robots-input']) ?>
+
+        <?= Html::submitButton('Сохранить', ['class' => 'submit']) ?>
+
+        <?= Html::endForm(); ?>
+
+    </div>
 </div>

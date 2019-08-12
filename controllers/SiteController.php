@@ -10,7 +10,6 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\PhoneNumber;
-use app\components\XmlDataProvider;
 use app\models\XmlDataModel;
 
 class SiteController extends Controller
@@ -125,17 +124,18 @@ class SiteController extends Controller
      * Displays about page.
      *
      * @return string
+     * @throws yii\base\InvalidConfigException
      */
     public function actionAbout()
     {
-      $xmlData = new XmlDataModel();
+        $xmlData = new XmlDataModel();
 
-      $productsFile = '../files/products.xml';
-      $categoriesFile = '../files/categories.xml';
-      $filteredResultData = $xmlData->getData($productsFile, $categoriesFile);
-      $searchModel = $xmlData->getModel();
+        $productsFile = '../files/products.xml';
+        $categoriesFile = '../files/categories.xml';
+        $filteredResultData = $xmlData->getData($productsFile, $categoriesFile);
+        $searchModel = $xmlData->getModel();
 
-      $dataProvider = new \yii\data\ArrayDataProvider([
+        $dataProvider = new \yii\data\ArrayDataProvider([
         'key'=>'id',
         'allModels' => $filteredResultData,
         'pagination' => [
@@ -144,8 +144,22 @@ class SiteController extends Controller
         'sort' => [
           'attributes' => ['id', 'price', 'hidden', 'category'],
         ],
-      ]);
+        ]);
 
-      return $this->render('about', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
+        $res = Yii::$app->request->getQueryParam('res') ?? 0;
+        $mes = '';
+        switch($res){
+            case 0:
+                $mes = "Заполните необходимые директивы!";break;
+            case -1:
+                $mes = "Ошибка при сохранении, попробуйте позднее!";break;
+            case 1:
+                $mes = "Сохранение настроек прошло успешно!";break;
+        }
+
+        $robots = Yii::$container->get('Robo');
+        $dirs = $robots->check();
+
+        return $this->render('about', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel, 'mes' => $mes, 'robots' => $dirs]);
     }
 }

@@ -3,16 +3,17 @@
 namespace app\components\robots\adapters;
 
 /**
- * Interface AdapterInterface
+ * Interface AdapterRobotsInterface
  *
  * @package app\components\robots\adapters
  */
 interface AdapterRobotsInterface
 {
     /**
-     * @param $data
+     * @param string $path
+     * @param array $dirs
      *
-     * @return string
+     * @return boolean
      */
-    public function render($data): string;
+    public function render($path, array $dirs): bool;
 }

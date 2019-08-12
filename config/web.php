@@ -13,9 +13,35 @@ $config = [
     ],
     'container' => [
         'definitions' => [
-            \app\components\robots\adapters\AdapterRobotsInterface::class => \app\components\robots\adapters\ArrayAdapter::class,
+            \app\components\robots\generators\GeneratorRobotsTxtInterface::class => [
+                'class' => \app\components\robots\generators\GeneratorRobotsTxt::class,
+                'directives' => [
+                    'User-agent: *',
+                    'Sitemap: http://yii2-nsign-basic/sitemap.xml',
+                ],
+                'directive_generators' => [
+                    'Disallow' => \app\components\robots\generators\DisallowGenerator::class,
+                    'Allow' => \app\components\robots\generators\AllowGenerator::class,
+                    'Clean-param' => \app\components\robots\generators\CleanParamGenerator::class,
+                    'Crawl-delay' => \app\components\robots\generators\CrawlDelayGenerator::class,
+                ],
+            ],
+        ],
+        'singletons' => [
+            'Robo' => [
+                'class' => \app\components\robots\RobotsTxtInterface::class,
+                'dirs' => [
+                    'Disallow' => '',
+                    'Allow' => '',
+                    'Clean-param' => '',
+                    'Crawl-delay' => ''
+                ],
+                'robots' => \app\components\robots\adapters\AdapterRobotsInterface::class,
+            ],
 
-            \app\components\robots\GeneratorRobotsTxtInterface::class => \app\components\robots\GeneratorRobotsTxt::class,
+            \app\components\robots\RobotsTxtInterface::class => \app\components\robots\RobotsTxt::class,
+
+            \app\components\robots\adapters\AdapterRobotsInterface::class => \app\components\robots\adapters\ArrayAdapter::class,
         ],
     ],
     'components' => [
