@@ -26,7 +26,10 @@ $config = [
                     'Crawl-delay' => \app\components\robots\generators\CrawlDelayGenerator::class,
                 ],
             ],
+
+            \app\components\redirect\csv\CsvDecodeInterface::class => \app\components\redirect\csv\CsvDecode::class,
         ],
+
         'singletons' => [
             'Robo' => [
                 'class' => \app\components\robots\RobotsTxtInterface::class,
@@ -38,10 +41,23 @@ $config = [
                 ],
                 'robots' => \app\components\robots\adapters\AdapterRobotsInterface::class,
             ],
-
             \app\components\robots\RobotsTxtInterface::class => \app\components\robots\RobotsTxt::class,
 
             \app\components\robots\adapters\AdapterRobotsInterface::class => \app\components\robots\adapters\ArrayAdapter::class,
+
+            'Redirect' => [
+                'class' => \app\components\redirect\RedirectInterface::class,
+                'source_adapters' => [
+                    'csv' => \app\components\redirect\adapters\SourceAdapterInterface::class,
+                ],
+            ],
+            \app\components\redirect\RedirectInterface::class => \app\components\redirect\Redirect::class,
+
+            \app\components\redirect\adapters\SourceAdapterInterface::class => [
+                'class' => \app\components\redirect\adapters\CsvAdapter::class,
+                'file' => '../files/redirect.csv',
+                'params' => ['from', 'to', 'status'],
+            ],
         ],
     ],
     'components' => [
@@ -96,43 +112,8 @@ $config = [
           'nullDisplay' => 'нет данных',
           'phoneMask' => '+7($1) $2-$3-$4',
         ],
-
-        /*'robots' => [
-            'class' => app\components\robots\GeneratorRobotsTxt::class,
-            'host' => 'yii2-nsign-basic',
-            'sitemap' => [
-                '/sitemap.xml',
-            ],
-            'userAgent' => [
-                '*' => [
-                    'Disallow' => [
-                        'web',
-                    ],
-                    'Allow' => [
-                        'site/index'
-                    ],
-                ],
-                'BingBot' => [
-                    'Disallow' => [
-                        'site/contact'
-                    ],
-                    'Allow' => [
-                        'site/about'
-                    ],
-                    'Sitemap' => '/sitemapSpecialForBing.xml',
-                ],
-                'Googlebot' => [
-                    'Disallow' => [
-                        'site/login'
-                    ],
-                    'Allow' => [
-                        'site/logout'
-                    ],
-                    'Sitemap' => '/sitemapSpecialForGoogle.xml',
-                ],
-            ],
-        ],*/
     ],
+
     'params' => $params,
 ];
 

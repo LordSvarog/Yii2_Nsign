@@ -21,7 +21,8 @@
         "ext-simplexml": "*",
         "ext-json": "*",
         "tinymce/tinymce": ">= 4",
-        "lord_svarog/yii2-tinymce-test-widget": "^1.0"
+        "lord_svarog/yii2-tinymce-test-widget": "^1.0",
+        "fedornabilkin/yii2-redirect": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

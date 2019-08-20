@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dd362a5d5970e7d5f97d49c6cb4d495",
+    "content-hash": "df7728cfc6982056b90942fa47523422",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -74,7 +74,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -330,6 +330,47 @@
                 "html"
             ],
             "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
+            "name": "fedornabilkin/yii2-redirect",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fedornabilkin/yii2-redirect.git",
+                "reference": "23405f8618c2ed488bacebcebf923848f559c818"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fedornabilkin/yii2-redirect/zipball/23405f8618c2ed488bacebcebf923848f559c818",
+                "reference": "23405f8618c2ed488bacebcebf923848f559c818",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "fedornabilkin\\redirect\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "fedornabilkin",
+                    "email": "fedornabilkin@yandex.ru"
+                }
+            ],
+            "description": "Find and save page not found, add new path.",
+            "keywords": [
+                "extension",
+                "redirect",
+                "yii2"
+            ],
+            "time": "2018-04-07T21:30:06+00:00"
         },
         {
             "name": "lord_svarog/yii2-tinymce-test-widget",
