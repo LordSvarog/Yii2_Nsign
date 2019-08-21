@@ -27,7 +27,17 @@ $config = [
                 ],
             ],
 
-            \app\components\redirect\csv\CsvDecodeInterface::class => \app\components\redirect\csv\CsvDecode::class,
+            \app\components\redirect\RedirectInterface::class => \app\components\redirect\Redirect::class,
+
+            \app\components\redirect\adapters\SourceAdapterInterface::class => [
+                'class' => \app\components\redirect\adapters\Adapter::class,
+                'params' => ['from', 'to', 'status'],
+            ],
+
+            \app\components\redirect\decoders\DecodeInterface::class => [
+                'class' => \app\components\redirect\decoders\CsvDecode::class,
+                'file' => '../files/redirect.csv',
+            ],
         ],
 
         'singletons' => [
@@ -45,19 +55,12 @@ $config = [
 
             \app\components\robots\adapters\AdapterRobotsInterface::class => \app\components\robots\adapters\ArrayAdapter::class,
 
-            'Redirect' => [
+            /*'Redirect' => [
                 'class' => \app\components\redirect\RedirectInterface::class,
                 'source_adapters' => [
-                    'csv' => \app\components\redirect\adapters\SourceAdapterInterface::class,
+                    'decoders' => \app\components\redirect\adapters\SourceAdapterInterface::class,
                 ],
-            ],
-            \app\components\redirect\RedirectInterface::class => \app\components\redirect\Redirect::class,
-
-            \app\components\redirect\adapters\SourceAdapterInterface::class => [
-                'class' => \app\components\redirect\adapters\CsvAdapter::class,
-                'file' => '../files/redirect.csv',
-                'params' => ['from', 'to', 'status'],
-            ],
+            ],*/
         ],
     ],
     'components' => [
