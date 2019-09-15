@@ -38,7 +38,6 @@ class ErrorAction extends \yii\web\ErrorAction
     public function run()
     {
         if (\Yii::$app->response->statusCode === 404) {
-//            $redirect = \Yii::$container->get('Redirect');
 
             if ($rule = $this->redirect->findRule())
                 return \Yii::$app->getResponse()->redirect($rule['to'], $rule['status']);

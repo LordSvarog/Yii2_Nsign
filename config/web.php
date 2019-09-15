@@ -27,10 +27,8 @@ $config = [
                 ],
             ],
 
-            \app\components\redirect\RedirectInterface::class => \app\components\redirect\Redirect::class,
-
-            \app\components\redirect\adapters\SourceAdapterInterface::class => [
-                'class' => \app\components\redirect\adapters\Adapter::class,
+            \app\components\redirect\RedirectInterface::class => [
+                'class' => \app\components\redirect\Redirect::class,
                 'params' => ['from', 'to', 'status'],
             ],
 
@@ -54,13 +52,6 @@ $config = [
             \app\components\robots\RobotsTxtInterface::class => \app\components\robots\RobotsTxt::class,
 
             \app\components\robots\adapters\AdapterRobotsInterface::class => \app\components\robots\adapters\ArrayAdapter::class,
-
-            /*'Redirect' => [
-                'class' => \app\components\redirect\RedirectInterface::class,
-                'source_adapters' => [
-                    'decoders' => \app\components\redirect\adapters\SourceAdapterInterface::class,
-                ],
-            ],*/
         ],
     ],
     'components' => [

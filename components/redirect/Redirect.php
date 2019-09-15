@@ -2,7 +2,7 @@
 
 namespace app\components\redirect;
 
-use app\components\redirect\adapters\SourceAdapterInterface;
+use app\components\redirect\decoders\DecodeInterface;
 
 /**
  * Class Redirect
@@ -12,17 +12,21 @@ use app\components\redirect\adapters\SourceAdapterInterface;
 class Redirect implements RedirectInterface
 {
     /**
-     * $var SourceAdapterInterface
+     * $var DecodeInterface
      */
-    private $adapter;
+    private $decoder;
+    /**
+     * @var array parameters for redirect
+     */
+    public $params;
     /**
      * Redirect constructor
      *
-     * @param SourceAdapterInterface $adapter
+     * @param DecodeInterface $decoder
      */
-    public function __construct(SourceAdapterInterface $adapter)
+    public function __construct(DecodeInterface $decoder)
     {
-        $this->adapter = $adapter;
+        $this->decoder = $decoder;
     }
     /**
      * @return array|false
@@ -30,10 +34,18 @@ class Redirect implements RedirectInterface
      */
     public function findRule()
     {
-        $adapter = $this->adapter;
+        $url = \Yii::$app->request->url;
 
-        if ($rule = $adapter->find())
-            return $rule;
+        if (($rules = $this->decoder->decode()) == FALSE)
+            return false;
+
+        foreach ($rules as $rule) {
+            $rule = array_combine($this->params, $rule);
+
+            if ($rule['from'] == $url)
+                return $rule;
+        }
+
         return false;
     }
 }
